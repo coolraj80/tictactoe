@@ -109,6 +109,9 @@
 			        adjAdjFrontRowCell = (row + 2) + "," + col;
 			        adjAdjBackRowCell = (row - 2) + "," + col;
 			        
+			        adjDiagRightDown = (row + 1) + "," + (col + 1);
+			        adjAdjDiagRightDown = (row + 2) + "," + (col + 2);
+			        
 
 			        if (isValid(adjBackColCell))
 			        {
@@ -267,22 +270,45 @@
 
 			            if (document.getElementById(adjFrontRowCell).style.backgroundColor == "red")
 			            {
-			                if (document.getElementById(adjBackRowCell).style.backgroundColor != "blue")
+			                if (isValid(adjBackRowCell))
 			                {
-			                    delay(function ()
-			                    { document.getElementById(adjBackRowCell).style.backgroundColor = 'blue'; }, 1000);
-			                    return;
-			                }
+			                    if (document.getElementById(adjBackRowCell).style.backgroundColor != "blue")
+			                    {
+			                        delay(function ()
+			                        { document.getElementById(adjBackRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                        return;
+			                    }
 
-			                else
-			                {
-			                    checkAndMark();
-			                    return;
-			                }
+			                    else
+			                    {
+			                        checkAndMark();
+			                        return;
+			                    }
+			                }			                
 			            }
-			        }
+                    }
+
+                    if (isValid(adjDiagRightDown))
+                    {
+                        alert('diag right down > ' + adjDiagRightDown + ' to ' + adjAdjDiagRightDown);
+                        if (document.getElementById(adjDiagRightDown).style.backgroundColor == "red")
+                        {
+                            if (document.getElementById(adjAdjDiagRightDown).style.backgroundColor != "blue")
+                            {
+                                delay(function ()
+                                { document.getElementById(adjAdjDiagRightDown).style.backgroundColor = 'blue'; }, 1000);
+                                return;
+                            }
+
+                            else
+                            {
+                                checkAndMark();
+                                return;
+                            }
+                        }
+                    }
                     
-			        checkAndMark();
+                    checkAndMark();                    
 			    }                		
 			}			
 		}
@@ -300,6 +326,47 @@
 		            { document.getElementById(allLoc[i]).style.backgroundColor = 'blue'; }, 1000);
 
 		            break;
+		        }
+		    }
+		}
+
+        // Check if won
+		function checkIfWon()
+		{
+		    
+		    var possibilities = [["1,1", "1,2", "1,3"], ["2,1", "2,2", "2,3"], ["3,1", "3,2", "3,3"], ["1,1", "2,1", "3,1"], ["1,2", "2,2", "3,2"], 
+                                 ["1,3", "2,3", "3,3"], ["1,1", "2,2", "3,3"], ["1,3", "2,2", "3,1"]];
+		    var userCount = 0;
+		    var compCount = 0;
+
+		    for (var i=0;i<possibilities.length;i++)
+		    {
+		        userCount = 0;
+		        compCount = 0;
+		        
+		        for(var j=0;j<possibilities[i].length;j++)
+		        {
+		            if (document.getElementById(possibilities[i][j]).style.backgroundColor == "red")
+		            {
+		                userCount = userCount + 1;                
+		            }
+
+		            if (document.getElementById(possibilities[i][j]).style.backgroundColor == "blue")
+		            {
+		                compCount = compCount + 1;
+		            }
+		        }
+
+		        if (userCount == 3)
+		        {
+		            alert('User WON !!');		            
+		            return;
+		        }
+
+		        if (compCount == 3)
+		        {
+		            alert('Comp WON !!');
+		            return;
 		        }
 		    }
 		}
@@ -336,19 +403,19 @@
 <center>
 	<table border=1>
 		<tr>
-			<td id="1,1" onClick="select(this.id);"></td>
-			<td id="1,2" onClick="select(this.id);"></td>
-			<td id="1,3" onClick="select(this.id);"></td>
+			<td id="1,1" onClick="select(this.id); checkIfWon();"></td>
+			<td id="1,2" onClick="select(this.id); checkIfWon();"></td>
+			<td id="1,3" onClick="select(this.id); checkIfWon();"></td>
 		</tr>
 		<tr>
-			<td id="2,1" onClick="select(this.id);"></td>
-			<td id="2,2" onClick="select(this.id);"></td>
-			<td id="2,3" onClick="select(this.id);"></td>
+			<td id="2,1" onClick="select(this.id); checkIfWon();"></td>
+			<td id="2,2" onClick="select(this.id); checkIfWon();"></td>
+			<td id="2,3" onClick="select(this.id); checkIfWon();"></td>
 		</tr>
 		<tr>
-			<td id="3,1" onClick="select(this.id);"></td>
-			<td id="3,2" onClick="select(this.id);"></td>
-			<td id="3,3" onClick="select(this.id);"></td>
+			<td id="3,1" onClick="select(this.id); checkIfWon();"></td>
+			<td id="3,2" onClick="select(this.id); checkIfWon();"></td>
+			<td id="3,3" onClick="select(this.id); checkIfWon();"></td>
 		</tr>
 	</table>
 
