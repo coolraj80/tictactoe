@@ -116,18 +116,36 @@
 
 			            if (document.getElementById(adjBackColCell).style.backgroundColor == "red")
 			            {
-			                if (document.getElementById(adjFrontColCell).style.backgroundColor != "blue")
+			                if (isValid(adjFrontColCell))
 			                {
-			                    delay(function ()
-			                    { document.getElementById(adjFrontColCell).style.backgroundColor = 'blue'; }, 1000);
-			                    return;
+			                    if (document.getElementById(adjFrontColCell).style.backgroundColor != "blue") {
+			                        delay(function ()
+			                        { document.getElementById(adjFrontColCell).style.backgroundColor = 'blue'; }, 1000);
+			                        return;
+			                    }
+
+			                    else {
+			                        checkAndMark();
+			                        return;
+			                    }
 			                }
 
 			                else
 			                {
-			                    checkAndMark();
-			                    return;
+			                    if (document.getElementById(adjAdjBackColCell).style.backgroundColor != "blue")
+			                    {
+			                        delay(function ()
+			                        { document.getElementById(adjAdjBackColCell).style.backgroundColor = 'blue'; }, 1000);
+			                        return;
+			                    }
+
+			                    else
+			                    {
+			                        checkAndMark();
+			                        return;
+			                    }
 			                }
+			                
 			            }			           
 			        }
 			        
@@ -159,18 +177,21 @@
 
 			            if (document.getElementById(adjBackRowCell).style.backgroundColor == "red")
 			            {
-			                if (document.getElementById(adjFrontRowCell).style.backgroundColor != "blue")
+			                if (isValid(adjFrontRowCell))
 			                {
-			                    delay(function ()
-			                    { document.getElementById(adjFrontRowCell).style.backgroundColor = 'blue'; }, 1000);
-			                    return;
-			                }
+			                    if (document.getElementById(adjFrontRowCell).style.backgroundColor != "blue")
+			                    {
+			                        delay(function ()
+			                        { document.getElementById(adjFrontRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                        return;
+			                    }
 
-			                else
-			                {
-			                    checkAndMark();
-			                    return;
-			                }
+			                    else
+			                    {
+			                        checkAndMark();
+			                        return;
+			                    }
+			                }			                
 			            }
 			        }
 
@@ -180,18 +201,22 @@
 
 			            if (document.getElementById(adjFrontColCell).style.backgroundColor == "red")
 			            {
-			                if (document.getElementById(adjBackColCell).style.backgroundColor != "blue")
+			                if (isValid(adjBackColCell))
 			                {
-			                    delay(function ()
-			                    { document.getElementById(adjBackColCell).style.backgroundColor = 'blue'; }, 1000);
-			                    return;
-			                }
+			                    if (document.getElementById(adjBackColCell).style.backgroundColor != "blue")
+			                    {
+			                        delay(function ()
+			                        { document.getElementById(adjBackColCell).style.backgroundColor = 'blue'; }, 1000);
+			                        return;
+			                    }
 
-			                else
-			                {
-			                    checkAndMark();
-			                    return;
+			                    else
+			                    {
+			                        checkAndMark();
+			                        return;
+			                    }
 			                }
+			                
 			            }
 			        }
 			        			        
@@ -262,6 +287,7 @@
 			}			
 		}
 
+        // Randomly plot next available space
 		function checkAndMark()
 		{
 		    alert('next available');
@@ -325,5 +351,15 @@
 			<td id="3,3" onClick="select(this.id);"></td>
 		</tr>
 	</table>
+
+    <br />
+    <br />
+
+    <table border=1>
+        <tr>
+            <td style="background-color:red;text-align:center;color:white;"><b>Human</b></td>
+            <td style="background-color:blue;text-align:center;color:white;"><b>Computer</b></td>
+        </tr>
+    </table>
 </center>
 </body>
