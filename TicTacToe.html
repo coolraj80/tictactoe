@@ -1,0 +1,329 @@
+<head>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 30%;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 40px;
+		}				
+	</style>
+
+	<script>
+        var step = 0;
+        var corners = ["1,1", "1,3", "3,1", "3,3"];
+        var sides = ["1,2", "2,1", "2,3", "3,2"];
+        var center = ["2,2"];           
+        var allLoc = sides.concat(corners.concat(center));
+
+		function select(id)
+        {		    
+		    var strId = "";
+		    strId = id;
+		    var spID;
+		    var row = 0;
+		    var col = 0;
+		    var newRow = 0;
+		    var newCol = 0;
+		    var newLoc = "";
+		    var adjacent = "";		    
+
+			if (document.getElementById(id).style.backgroundColor == 'red')
+			{
+				alert('Invalid Selection');
+			}
+
+			else
+			{
+			    document.getElementById(id).style.backgroundColor = 'red';
+
+			    step = step + 1;
+
+                // Scenario for Step 1
+			    if (step == 1)
+			    {
+			        spID = strId.split(",");
+			        row = Number(spID[0]);
+			        col = Number(spID[1]);
+
+			        newRow = row + 1;
+			        newCol = col + 1;
+
+                    // Check for Step 1 in the Corners
+			        if (corners.indexOf(id) >= 0)
+			        {			            
+			            newLoc = center[0];
+                    }
+			        
+                    // Check for Step 1 in center
+			        else if (center.indexOf(id) >= 0)
+			        {
+			            newLoc = newRow + "," + newCol;
+			        }
+
+                    // Scenario for Step 1 in the sides
+			        else
+			        {                        			            
+			            newLoc = newRow + "," + col;
+
+			            // Test new location for center
+			            if (center.indexOf(newLoc) >= 0)
+			            {
+			                newLoc = row + "," + newCol;			         
+			            }
+
+			            else
+			            {
+			                // Test new location for max row breach
+			                if (newRow > 3)
+			                {
+			                    newLoc = row + "," + newCol;
+			                }
+
+			                else
+			                {
+			                    newLoc = newRow + "," + col;
+			                }
+			            }			            
+			        }
+
+			        delay(function ()
+			        { document.getElementById(newLoc).style.backgroundColor = 'blue'; }, 1000);
+			    }
+
+			    else if (step > 1)
+			    {
+			        spID = strId.split(",");
+			        row = Number(spID[0]);
+			        col = Number(spID[1]);			        
+
+			        adjFrontColCell = row + "," + (col + 1);
+			        adjBackColCell = row + "," + (col - 1);
+			        adjAdjFrontColCell = row + "," + (col + 2);
+			        adjAdjBackColCell = row + "," + (col - 2);
+
+			        adjFrontRowCell = (row + 1) + "," + col;
+			        adjBackRowCell = (row - 1) + "," + col;
+			        adjAdjFrontRowCell = (row + 2) + "," + col;
+			        adjAdjBackRowCell = (row - 2) + "," + col;
+			        
+
+			        if (isValid(adjBackColCell))
+			        {
+			            alert('back col > ' + adjBackColCell + ' to ' + adjFrontColCell);
+
+			            if (document.getElementById(adjBackColCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjFrontColCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjFrontColCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }			           
+			        }
+			        
+			        
+			        if (isValid(adjAdjBackColCell))
+			        {
+			            alert('back back col > ' + adjAdjBackColCell + ' to ' + adjBackColCell);
+
+			            if (document.getElementById(adjAdjBackColCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjBackColCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjBackColCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+
+			        if (isValid(adjBackRowCell))
+			        {
+			            alert('back row > ' + adjBackRowCell + ' to ' + adjFrontRowCell);
+
+			            if (document.getElementById(adjBackRowCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjFrontRowCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjFrontRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+
+			        if (isValid(adjFrontColCell))
+			        {
+			            alert('front col > ' + adjFrontColCell + ' to ' + adjBackColCell);
+
+			            if (document.getElementById(adjFrontColCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjBackColCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjBackColCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+			        			        
+			        if (isValid(adjAdjBackRowCell))
+			        {
+			            alert('back back row > ' + adjAdjBackRowCell + ' to ' + adjBackRowCell);
+
+			            if (document.getElementById(adjAdjBackRowCell).style.backgroundColor == "red")
+			            {                            
+			                if (document.getElementById(adjBackRowCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjBackRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+
+			        if (isValid(adjAdjFrontRowCell))
+			        {
+			            alert('front front row > ' + adjAdjFrontRowCell + ' to ' + adjFrontRowCell);			            
+
+			            if (document.getElementById(adjAdjFrontRowCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjFrontRowCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjFrontRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+
+                    if (isValid(adjFrontRowCell))
+			        {
+                        alert('front row > ' + adjFrontRowCell + ' to ' + adjBackRowCell);			            
+
+			            if (document.getElementById(adjFrontRowCell).style.backgroundColor == "red")
+			            {
+			                if (document.getElementById(adjBackRowCell).style.backgroundColor != "blue")
+			                {
+			                    delay(function ()
+			                    { document.getElementById(adjBackRowCell).style.backgroundColor = 'blue'; }, 1000);
+			                    return;
+			                }
+
+			                else
+			                {
+			                    checkAndMark();
+			                    return;
+			                }
+			            }
+			        }
+                    
+			        checkAndMark();
+			    }                		
+			}			
+		}
+
+		function checkAndMark()
+		{
+		    alert('next available');
+		    for (var i = 0; i < allLoc.length; i++)
+		    {		        
+		        if ((document.getElementById(allLoc[i]).style.backgroundColor != "red") &&
+		            (document.getElementById(allLoc[i]).style.backgroundColor != "blue"))
+		        {
+		            delay(function ()
+		            { document.getElementById(allLoc[i]).style.backgroundColor = 'blue'; }, 1000);
+
+		            break;
+		        }
+		    }
+		}
+
+		function isValid(cell)
+		{
+		    var strCell = "";
+		    strCell = cell;
+		    spStrCell = strCell.split(",");
+		    if (spStrCell[0] > 3 || spStrCell[0] < 1)
+		    {
+		        return false;
+		    }
+
+		    if (spStrCell[1] > 3 || spStrCell[1] < 1)
+		    {
+		        return false;
+		    }
+
+		    return true;
+		}
+
+		var delay = ( function() {
+			var timer = 0;
+			return function(callback, ms) {
+				clearTimeout (timer);
+				timer = setTimeout(callback, ms);
+			};
+		})();
+	</script>
+</head>
+
+<body>
+<center>
+	<table border=1>
+		<tr>
+			<td id="1,1" onClick="select(this.id);"></td>
+			<td id="1,2" onClick="select(this.id);"></td>
+			<td id="1,3" onClick="select(this.id);"></td>
+		</tr>
+		<tr>
+			<td id="2,1" onClick="select(this.id);"></td>
+			<td id="2,2" onClick="select(this.id);"></td>
+			<td id="2,3" onClick="select(this.id);"></td>
+		</tr>
+		<tr>
+			<td id="3,1" onClick="select(this.id);"></td>
+			<td id="3,2" onClick="select(this.id);"></td>
+			<td id="3,3" onClick="select(this.id);"></td>
+		</tr>
+	</table>
+</center>
+</body>
