@@ -32,7 +32,7 @@
 
 			if (document.getElementById(id).style.backgroundColor == 'red')
 			{
-				alert('Invalid Selection');
+				//alert('Invalid Selection');
 			}
 
 			else
@@ -115,7 +115,7 @@
 
 			        if (isValid(adjBackColCell))
 			        {
-			            alert('back col > ' + adjBackColCell + ' to ' + adjFrontColCell);
+			            //alert('back col > ' + adjBackColCell + ' to ' + adjFrontColCell);
 
 			            if (document.getElementById(adjBackColCell).style.backgroundColor == "red")
 			            {
@@ -155,7 +155,7 @@
 			        
 			        if (isValid(adjAdjBackColCell))
 			        {
-			            alert('back back col > ' + adjAdjBackColCell + ' to ' + adjBackColCell);
+			            //alert('back back col > ' + adjAdjBackColCell + ' to ' + adjBackColCell);
 
 			            if (document.getElementById(adjAdjBackColCell).style.backgroundColor == "red")
 			            {
@@ -176,7 +176,7 @@
 
 			        if (isValid(adjBackRowCell))
 			        {
-			            alert('back row > ' + adjBackRowCell + ' to ' + adjFrontRowCell);
+			            //alert('back row > ' + adjBackRowCell + ' to ' + adjFrontRowCell);
 
 			            if (document.getElementById(adjBackRowCell).style.backgroundColor == "red")
 			            {
@@ -200,7 +200,7 @@
 
 			        if (isValid(adjFrontColCell))
 			        {
-			            alert('front col > ' + adjFrontColCell + ' to ' + adjBackColCell);
+			            //alert('front col > ' + adjFrontColCell + ' to ' + adjBackColCell);
 
 			            if (document.getElementById(adjFrontColCell).style.backgroundColor == "red")
 			            {
@@ -225,7 +225,7 @@
 			        			        
 			        if (isValid(adjAdjBackRowCell))
 			        {
-			            alert('back back row > ' + adjAdjBackRowCell + ' to ' + adjBackRowCell);
+			            //alert('back back row > ' + adjAdjBackRowCell + ' to ' + adjBackRowCell);
 
 			            if (document.getElementById(adjAdjBackRowCell).style.backgroundColor == "red")
 			            {                            
@@ -246,7 +246,7 @@
 
 			        if (isValid(adjAdjFrontRowCell))
 			        {
-			            alert('front front row > ' + adjAdjFrontRowCell + ' to ' + adjFrontRowCell);			            
+			            //alert('front front row > ' + adjAdjFrontRowCell + ' to ' + adjFrontRowCell);			            
 
 			            if (document.getElementById(adjAdjFrontRowCell).style.backgroundColor == "red")
 			            {
@@ -266,7 +266,7 @@
 
                     if (isValid(adjFrontRowCell))
 			        {
-                        alert('front row > ' + adjFrontRowCell + ' to ' + adjBackRowCell);			            
+                        //alert('front row > ' + adjFrontRowCell + ' to ' + adjBackRowCell);			            
 
 			            if (document.getElementById(adjFrontRowCell).style.backgroundColor == "red")
 			            {
@@ -290,7 +290,7 @@
 
                     if (isValid(adjDiagRightDown))
                     {
-                        alert('diag right down > ' + adjDiagRightDown + ' to ' + adjAdjDiagRightDown);
+                        //alert('diag right down > ' + adjDiagRightDown + ' to ' + adjAdjDiagRightDown);
                         if (document.getElementById(adjDiagRightDown).style.backgroundColor == "red")
                         {
                             if (document.getElementById(adjAdjDiagRightDown).style.backgroundColor != "blue")
@@ -316,7 +316,7 @@
         // Randomly plot next available space
 		function checkAndMark()
 		{
-		    alert('next available');
+		    //alert('next available');
 		    for (var i = 0; i < allLoc.length; i++)
 		    {		        
 		        if ((document.getElementById(allLoc[i]).style.backgroundColor != "red") &&
@@ -365,7 +365,7 @@
 
 		        if (compCount == 3)
 		        {
-		            alert('Comp WON !!');
+		            alert('Computer WON !!');
 		            return;
 		        }
 		    }
@@ -399,7 +399,7 @@
 	</script>
 </head>
 
-<body>
+<body onload="//alert('Please Click on Box to Start Game');">
 <center>
 	<table border=1>
 		<tr>
@@ -421,7 +421,9 @@
 
     <br />
     <br />
-
+    <input value="NEW GAME" type="button" onclick="location.reload();" />
+    <br />
+    <br />
     <table border=1>
         <tr>
             <td style="background-color:red;text-align:center;color:white;"><b>Human</b></td>
